@@ -10,8 +10,12 @@ This project use [mermaid](https://github.com/knsv/mermaid) and a custom JsDoc t
 
 ## Usage
 
-1. Install package  
-```npm install```
+1. Install submodule & package  
+```
+    git submodule init
+    git submodule update
+    npm install
+```
 
 2. Generate Mermaid file with the custom JsDoc template  
 ```jsdoc path/to/file -t mermaidtemplate```

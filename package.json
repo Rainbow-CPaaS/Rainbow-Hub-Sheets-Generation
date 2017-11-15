@@ -1,0 +1,25 @@
+{
+  "name": "rainbow_hub_sheets_generation",
+  "version": "1.0.0",
+  "description": "The Alcatel-Lucent Enterprise (ALE) Rainbow Hub sheets generation is a tool for generating documentation",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "fs": "0.0.1-security",
+    "path": "^0.12.7",
+    "mermaid": "git+https://github.com/ALE-Rainbow/mermaid.git"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rainbow-CPaaS/Rainbow-Hub-Sheets-Generation.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Rainbow-CPaaS/Rainbow-Hub-Sheets-Generation/issues"
+  },
+  "homepage": "https://github.com/Rainbow-CPaaS/Rainbow-Hub-Sheets-Generation#readme"
+}
