@@ -34,3 +34,10 @@ Jsdoc output goes here
     mermaid.initialize({startOnLoad: true, theme: 'grey'});
 </script>
 ```
+
+## Mermaid
+
+This version of mermaid is modified to include :
+
+  * Cardinality and event in class diagram
+  * New theme
