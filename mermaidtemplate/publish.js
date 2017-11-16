@@ -3,6 +3,7 @@
 "use strict";
 
 var fs = require("fs");
+var mkdirp = require("mkdirp");
 var path = require("path");
 var config = require("./config");
 /**
@@ -42,7 +43,7 @@ exports.publish = function(data, opts) {
      * @param {string} name 
      */
     var manageClass = function(name) {
-        fs.appendFileSync("diagram", "\nclass " + name);
+        fs.appendFileSync(config.output + "diagram", "\nclass " + name);
         classData.push(name);
     };
 
@@ -59,12 +60,12 @@ exports.publish = function(data, opts) {
             return index == self.indexOf(elem);
         });
         
-        fs.appendFileSync("diagram", "\nclass " + name + " enum");
+        fs.appendFileSync(config.output + "diagram", "\nclass " + name + " enum");
         manageRelation(memberof, name, "-->")
 
         values.forEach(function(value) {
             value = value.substring(1, value.length - 1);
-            fs.appendFileSync("diagram", "\n" + name + " : " + value);
+            fs.appendFileSync(config.output + "diagram", "\n" + name + " : " + value);
         })
     };
 
@@ -76,7 +77,7 @@ exports.publish = function(data, opts) {
      * @param {string} type
      */
     var manageAttribute = function(className, attribute, type) {
-        fs.appendFileSync("diagram", "\n" + className + " : " + type + " : " + attribute);
+        fs.appendFileSync(config.output + "diagram", "\n" + className + " : " + type + " : " + attribute);
     };
 
     /**
@@ -87,7 +88,7 @@ exports.publish = function(data, opts) {
      * @param {string} params 
      */
     var manageFunction = function(className, returnType, name, params) {
-        fs.appendFileSync("diagram", "\n" + className + " : " + returnType + " : " + name + "(" + params + ")");
+        fs.appendFileSync(config.output + "diagram", "\n" + className + " : " + returnType + " : " + name + "(" + params + ")");
     }
 
     /**
@@ -97,10 +98,14 @@ exports.publish = function(data, opts) {
      * @param {string} relationType 
      */
     var manageRelation = function(class1, class2, relationType) {
-        fs.appendFileSync("diagram", "\n" + class1 + " " + relationType + " " + class2);
+        fs.appendFileSync(config.output + "diagram", "\n" + class1 + " " + relationType + " " + class2);
     };
     
-    fs.writeFileSync("diagram", "classDiagram");
+    if(!fs.existsSync(config.output)) {
+        mkdirp.sync(config.output);
+    }
+    
+    fs.writeFileSync(config.output + "diagram", "classDiagram");
 
     var classData = [];
     var relationData = [];
