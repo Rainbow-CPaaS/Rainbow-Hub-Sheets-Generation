@@ -10,7 +10,7 @@
   "license": "MIT",
   "dependencies": {
     "fs": "0.0.1-security",
-    "mermaid": "git+https://github.com/ALE-Rainbow/mermaid.git",
+    "mermaid": "git+https://github.com/ALE-Rainbow/mermaid.git#master",
     "mkdirp": "^0.5.1",
     "path": "^0.12.7"
   },
