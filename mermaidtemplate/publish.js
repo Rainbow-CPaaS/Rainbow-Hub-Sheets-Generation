@@ -105,7 +105,7 @@ exports.publish = function(data, opts) {
         mkdirp.sync(config.output);
     }
     
-    fs.writeFileSync(config.output + "diagram", "classDiagram");
+    fs.writeFileSync(config.output + "diagram", "<!--START-->\nclassDiagram");
 
     var classData = [];
     var relationData = [];
@@ -229,4 +229,6 @@ exports.publish = function(data, opts) {
                 return;
         }
     }, this);
+
+    fs.appendFileSync(config.output + "diagram", "\n<!--END-->");
 };
