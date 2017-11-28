@@ -91,6 +91,9 @@ exports.publish = function(data, opts) {
         fs.appendFileSync(config.output + "diagram", "\n" + className + " : " + returnType + " : " + name + "(" + params + ")");
     }
 
+    var manageEvent = function(className, name) {
+        fs.appendFileSync(config.output + "diagram", "\n" + className + " ::event : " + name); 
+    }
     /**
      * Function that append relation to mermaid file
      * @param {string} class1 
@@ -228,6 +231,10 @@ exports.publish = function(data, opts) {
 
                 manageFunction(memberof, returnType, name, params);
 
+                break;
+            
+            case "event":
+                manageEvent(memberof, name);
                 break;
 
             default:

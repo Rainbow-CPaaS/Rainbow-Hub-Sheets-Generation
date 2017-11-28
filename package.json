@@ -1,6 +1,6 @@
 {
   "name": "rainbow_hub_sheets_generation",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "The Alcatel-Lucent Enterprise (ALE) Rainbow Hub sheets generation is a tool for generating documentation",
   "main": "index.js",
   "scripts": {
