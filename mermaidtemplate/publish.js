@@ -200,7 +200,12 @@ exports.publish = function(data, opts) {
 
                 var returnType = "void";
                 if(doc.returns && doc.returns[0] && doc.returns[0].type && doc.returns[0].type.names) { // check if return type exist
-                    returnType = cleanName(doc.returns[0].type.names[0]);
+                    if(doc.returns[0].type.names[0].indexOf("Array.") !== -1) {
+                        returnType = cleanArrayType(doc.returns[0].type.names[0]);
+                    }
+                    else {
+                        returnType = cleanName(doc.returns[0].type.names[0]);
+                    }
                 }
 
                 var params = "";
