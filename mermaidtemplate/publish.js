@@ -39,6 +39,16 @@ exports.publish = function(data, opts) {
     };
 
     /**
+     * Function that transform Promise Object from Jsdoc (Promise.<Object>) to mermaid PromiseType (Promise.Object)
+     * @param {*} text
+     * @return {string}
+     */
+    var cleanPromiseType = function(text) {
+        var regex = new RegExp("<|>", "g");
+        return text.replace(regex, "");
+    }
+
+    /**
      * Function that append class to mermaid file 
      * @param {string} name 
      */
@@ -179,6 +189,9 @@ exports.publish = function(data, opts) {
                         type = cleanArrayType(doc.properties[0].type.names[0]);
                         card = "*";
                     }
+                    else if(doc.returns[0].type.names[0].indexOf("Promise.") !== -1) {
+                        returnType = cleanPromiseType(doc.returns[0].type.names[0]);
+                    }
                     else {
                         type = cleanName(doc.properties[0].type.names[0]);
                         card = "1";
@@ -205,6 +218,9 @@ exports.publish = function(data, opts) {
                 if(doc.returns && doc.returns[0] && doc.returns[0].type && doc.returns[0].type.names) { // check if return type exist
                     if(doc.returns[0].type.names[0].indexOf("Array.") !== -1) {
                         returnType = cleanArrayType(doc.returns[0].type.names[0]);
+                    }
+                    else if(doc.returns[0].type.names[0].indexOf("Promise.") !== -1) {
+                        returnType = cleanPromiseType(doc.returns[0].type.names[0]);
                     }
                     else {
                         returnType = cleanName(doc.returns[0].type.names[0]);
