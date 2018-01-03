@@ -233,6 +233,10 @@ exports.publish = function(data, opts) {
                         var type = "";
                         if(param.type && param.type.names){
                             type = param.type.names[0];
+
+                            if(type.indexOf("Array.") !== -1) {
+                                type = cleanArrayType(type);
+                            }
                             params += type + " ";
                         }
 
