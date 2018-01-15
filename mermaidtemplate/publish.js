@@ -237,12 +237,14 @@ exports.publish = function(data, opts) {
                             if(type.indexOf("Array.") !== -1) {
                                 type = cleanArrayType(type);
                             }
-                            params += type + " ";
+                            params += type;
                         }
 
-                        if(param.name) {
-                            params += param.name + ", ";
+                        if(config.printParametersName && param.name) {
+                            params += " " + param.name;
                         }
+
+                        params += ", ";
                         
                     }, this);
 
