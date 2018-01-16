@@ -35,7 +35,7 @@ exports.publish = function(data, opts) {
      * @return {string}
      */
     var cleanArrayType = function(text) {
-        return text.split("<")[1].split(">")[0] + "[]";
+        return text.match(/Array.<([^>]+)>/)[1] + "[]";
     };
 
     /**
@@ -44,6 +44,12 @@ exports.publish = function(data, opts) {
      * @return {string}
      */
     var cleanPromiseType = function(text) {
+
+        if(text.indexOf("Array.") > 0) {
+            var arrayType = cleanArrayType(text);
+            return "Promise." + arrayType;
+        }
+
         var regex = new RegExp("<|>", "g");
         return text.replace(regex, "");
     }
@@ -185,12 +191,12 @@ exports.publish = function(data, opts) {
                 var card;
 
                 if(doc && doc.properties && doc.properties[0] && doc.properties[0].type && doc.properties[0].type.names) { // check if type exist
-                    if(doc.properties[0].type.names[0].indexOf("Array.") !== -1) {
+                    if(doc.properties[0].type.names[0].indexOf("Array.") === 0) {
                         type = cleanArrayType(doc.properties[0].type.names[0]);
                         card = "*";
                     }
-                    else if(doc.properties[0].type.names[0].indexOf("Promise.") !== -1) {
-                        returnType = cleanPromiseType(doc.returns[0].type.names[0]);
+                    else if(doc.properties[0].type.names[0].indexOf("Promise.") === 0) {
+                        returnType = cleanPromiseType(doc.properties[0].type.names[0]);
                     }
                     else {
                         type = cleanName(doc.properties[0].type.names[0]);
@@ -216,15 +222,19 @@ exports.publish = function(data, opts) {
 
                 var returnType = "void";
                 if(doc.returns && doc.returns[0] && doc.returns[0].type && doc.returns[0].type.names) { // check if return type exist
-                    if(doc.returns[0].type.names[0].indexOf("Array.") !== -1) {
+
+                    var returnType = doc.returns[0].type.names[0];
+                    
+                    if(doc.returns[0].type.names[0].indexOf("Array.") === 0) {
                         returnType = cleanArrayType(doc.returns[0].type.names[0]);
                     }
-                    else if(doc.returns[0].type.names[0].indexOf("Promise.") !== -1) {
-                        returnType = cleanPromiseType(doc.returns[0].type.names[0]);
+                    else if(doc.returns[0].type.names[0].indexOf("Promise.") === 0) {
+                        returnType = cleanPromiseType(doc.returns[0].type.names[0]);                        
                     }
                     else {
                         returnType = cleanName(doc.returns[0].type.names[0]);
                     }
+
                 }
 
                 var params = "";
