@@ -189,7 +189,7 @@ exports.publish = function(data, opts) {
                         type = cleanArrayType(doc.properties[0].type.names[0]);
                         card = "*";
                     }
-                    else if(doc.returns[0].type.names[0].indexOf("Promise.") !== -1) {
+                    else if(doc.properties[0].type.names[0].indexOf("Promise.") !== -1) {
                         returnType = cleanPromiseType(doc.returns[0].type.names[0]);
                     }
                     else {
