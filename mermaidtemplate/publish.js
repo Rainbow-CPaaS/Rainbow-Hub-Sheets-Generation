@@ -210,6 +210,10 @@ exports.publish = function(data, opts) {
                     }
                 }
 
+                if(doc.type && doc.type.names && doc.type.names[0]) {
+                    type = doc.type.names[0];
+                }
+
                 if(config.allowUndefinedType === false && type === "undefined") {
                     return;
                 }
